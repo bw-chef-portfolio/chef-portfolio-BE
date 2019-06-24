@@ -2,55 +2,55 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 
-const tokens = require('./token.js');
+const tokens = require("./token.js");
 const db = require("../data/dbConfig");
 
 router.post("/register", (req, res) => {
-    const user = req.body;
+  const user = req.body;
 
-    if (!user.username || !user.password || !user.email || !user.location) {
+  if (!user.username || !user.password || !user.email || !user.location) {
+    res.status(400).json({
+      error: "Please fill out all of the fields"
+    });
+  } else {
+    const hash = bcrypt.hashSync(user.password, 14);
+    user.password = hash;
+    db("users")
+      .insert(user)
+      .then(ids => {
+        const id = ids[0];
+
+        db("users")
+          .where({ id })
+          .first()
+          .then(user => {
+            const token = tokens.generateToken(user);
+            res
+              .status(201)
+              .json({ id: user.id, username: user.username, token });
+          })
+          .catch(error => {
+            res.status(500).json({
+              error: "There was an error while saving the user to the database."
+            });
+          });
+      })
+      .catch(error => {
         res.status(400).json({
-            error: "Please fill out all of the fields"
+          error: "This username already exists!"
         });
-    } else {
-        const hash = bcrypt.hashSync(user.password, 14);
-        user.password = hash;
-        db('users')
-            .insert(user)
-            .then(ids => {
-                const id = ids[0];
-                
-                db('users')
-                .where({ id })
-                .first()
-                .then(user => {
-                    const token = tokens.generateToken(users);
-                    res
-                        .status(201)
-                        .json({ id: user.id, username: user.username, token });
-                })
-                .catch(error => {
-                    res.status(500).json({
-                        error: "There was an error while saving the user to the database"
-                    });
-                });
-            })
-            .catch(error => {
-                res.status(400).json({
-                  error: "This username already exists!"
-                });
-              });
-    }
-})
+      });
+  }
+});
 
 router.post("/login", (req, res) => {
-    let { username, password } = req.body;
-    if (!username || !password) {
-        res.status(400).json({
-            error: "Please provide a username and password"
-        });
-    } else {
-        db("users")
+  let { username, password } = req.body;
+  if (!username || !password) {
+    res.status(400).json({
+      error: "Please provide a username and password."
+    });
+  } else {
+    db("users")
       .where({ username })
       .first()
       .then(user => {
