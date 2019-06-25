@@ -13,7 +13,7 @@ exports.seed = function(knex, Promise) {
       chef_name: "Mitsuki",
       recipe_title: "Soup",
       item_photo:
-        "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+        "https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80",
       chef_location: "Austin, TX",
       item_ingredients: "Water, Tomatoes, Cream, Basil",
       user_id: 2
