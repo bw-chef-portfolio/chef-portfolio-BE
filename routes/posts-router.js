@@ -53,7 +53,7 @@ router.get("/:id", restricted, (req, res) => {
 router.post("/", restricted, (req, res) => {
   const post = req.body;
 
-  if (!post.couple_name) {
+  if (!post.chef_name) {
     res
       .status(400)
       .json({ error: "Please provide a couple name for the post." });
