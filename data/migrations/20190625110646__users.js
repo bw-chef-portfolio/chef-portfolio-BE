@@ -1,3 +1,4 @@
+const { dropTable } = require("../helpers/fkey");
 exports.up = function(knex) {
     return knex.schema.createTable("users", table => {
       table.increments();
@@ -15,6 +16,4 @@ exports.up = function(knex) {
     });
   };
   
-  exports.down = function(knex, Promise) {
-    return knex.schema.dropTableIfExists("users");
-  };
+  exports.down = dropTable("users");
