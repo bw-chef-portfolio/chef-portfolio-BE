@@ -1,3 +1,13 @@
+const localPg = {
+  host: 'localhost',
+  database: 'auth',
+  user: 'test',
+  password: 'hired',
+}
+
+const productionDbConnection = process.env.DATABASE_URL || localPg
+
+
 module.exports = {
   development: {
     client: "sqlite3",
