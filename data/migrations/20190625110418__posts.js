@@ -1,3 +1,4 @@
+const { dropTable, fkey } = require("../helpers/fkey");
 exports.up = function(knex) {
     return knex.schema.createTable("posts", posts => {
       posts.increments();
@@ -7,18 +8,9 @@ exports.up = function(knex) {
       posts.string("item_photo", 255);
       posts.string("chef_location", 255);
       posts.string("item_ingredients", 255);
-  
-      posts
-        .integer("user_id")
-        .unsigned()
-        .notNullable()
-        .references("id")
-        .inTable("users")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+      
+      fkey(posts, "user_id", "users");
     });
   };
   
-  exports.down = function(knex) {
-    return knex.schema.dropTableIfExists("posts");
-  };
+  exports.down = dropTable("posts");
