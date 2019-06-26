@@ -61,4 +61,4 @@ typings/
 .next
 
 #database
-chef.db3
+.db3
