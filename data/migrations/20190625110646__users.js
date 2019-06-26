@@ -1,4 +1,4 @@
-const { dropTable } = require("../helpers/fkey");
+const { dropTable } = require("../helpers/fkeys");
 exports.up = function(knex) {
     return knex.schema.createTable("users", table => {
       table.increments();
