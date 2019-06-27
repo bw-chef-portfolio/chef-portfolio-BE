@@ -7,9 +7,15 @@ const postsRouter = require("../routes/posts-router.js");
 
 const server = express();
 
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+};
+
+
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
+server.use(cors(corsOptions));
 
 server.use("/api/auth", authRouter);
 server.use("/api/posts", postsRouter);
