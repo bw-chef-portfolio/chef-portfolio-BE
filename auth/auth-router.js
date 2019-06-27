@@ -8,7 +8,7 @@ const db = require("../data/dbConfig");
 router.post("/register", (req, res) => {
   const user = req.body;
 
-  if (!user.username || !user.password || !user.location) {
+  if (!user.username || !user.password ) {
     res.status(400).json({
       error: "Please fill out all of the fields"
     });
