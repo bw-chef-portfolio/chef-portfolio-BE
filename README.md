@@ -49,8 +49,13 @@ https://chef-portfolio-bw.herokuapp.com/api/posts/:id
 
 https://chef-portfolio-bw.herokuapp.com/api/posts
 
-- a Post that will return the post object that is created for the logged in user
+- a Post request that will let the logged in user create a new chef post
 - <strong>Required</strong>: chef_name
+
+https://chef-portfolio-bw.herokuapp.com/api/posts/
+
+- a PUT request to edit the post that the user created
+- <strong>Required</strong>: User needs to be logged in
 
 https://chef-portfolio-bw.herokuapp.com/api/posts/:id
 
