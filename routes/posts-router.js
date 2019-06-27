@@ -50,6 +50,8 @@ router.get("/:id", restricted, (req, res) => {
     });
 });
 
+
+
 router.post("/", restricted, (req, res) => {
   const post = req.body;
 
@@ -80,35 +82,24 @@ router.post("/", restricted, (req, res) => {
   }
 });
 
-router.put("/:id", restricted, (req, res) => {
+router.put("/:id", restricted,  async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  if (!changes.item_name) {
-    res.status(400).json({
-      error: "Please provide a name for the post."
-    });
-  } else {
-    db("posts")
-      .where({ id, user_id: req.decodedToken.subject })
-      .update(changes)
-      .returning("id")
-      .then(count => {
-        if (count > 0) {
-          res.status(200).json(count);
-        } else {
-          res.status(404).json({
-            error: "You cannot access the post with this specific id."
-          });
-        }
-      })
+  await db("posts")
+    .where({ id })
+    .update(changes)
+    .returning("id")
+    .then( count => {
+        res.status(200).json( changes )
+
       .catch(error => {
         res.status(500).json({
-          error: "The post could not be modified."
-        });
-      });
-  }
-});
+          error: "Error with server"
+        })
+      })
+    })
+  })
 
 router.delete("/:id", restricted, (req, res) => {
   const { id } = req.params;
@@ -116,14 +107,11 @@ router.delete("/:id", restricted, (req, res) => {
     .where({ id, user_id: req.decodedToken.subject })
     .del()
     .returning("id")
-    .then(count => {
-      if (count > 0) {
-        res.status(200).json(count);
-      } else {
-        res
+    .then(post => {
+      res.status(200).json(count);
+    })
           .status(404)
           .json({ error: "You cannot access the post with this specific id." });
-      }
     })
     .catch(error => {
       res.status(500).json({
@@ -133,3 +121,6 @@ router.delete("/:id", restricted, (req, res) => {
 });
 
 module.exports = router;
+
+
+// get request that takes in token as authorization and pulls the id off token and then find all the posts in the database that match that user id and returns that post
