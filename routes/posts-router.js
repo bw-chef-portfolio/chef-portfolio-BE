@@ -56,7 +56,7 @@ router.post("/", restricted, (req, res) => {
   if (!post.chef_name) {
     res
       .status(400)
-      .json({ error: "Please provide a couple name for the post." });
+      .json({ error: "Please provide a chef name for the post." });
   } else {
     post.user_id = req.decodedToken.subject;
     db("posts")
