@@ -82,11 +82,11 @@ router.post("/", restricted, (req, res) => {
   }
 });
 
-router.put("/:id", restricted,  async (req, res) => {
+router.put("/:id", restricted, (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  await db("posts")
+  db("posts")
     .where({ id })
     .update(changes)
     .returning("id")
