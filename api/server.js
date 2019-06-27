@@ -7,12 +7,11 @@ const postsRouter = require("../routes/posts-router.js");
 
 const server = express();
 
-const corsOptions = {
-  //origin: '*',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  'Access-Control-Allow-Origin':'*'
-};
-
+server.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 server.use(helmet());
 server.use(express.json());
