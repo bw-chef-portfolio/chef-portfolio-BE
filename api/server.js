@@ -8,8 +8,9 @@ const postsRouter = require("../routes/posts-router.js");
 const server = express();
 
 const corsOptions = {
-  origin: '*',
+  //origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'Access-Control-Allow-Origin':'*'
 };
 
 
