@@ -8,7 +8,7 @@ const db = require("../data/dbConfig");
 router.post("/register", (req, res) => {
   const user = req.body;
 
-  if (!user.username || !user.password ) {
+  if (!user.username || !user.password || !user.email || !user.location) {
     res.status(400).json({
       error: "Please fill out all of the fields"
     });
@@ -36,8 +36,10 @@ router.post("/register", (req, res) => {
           });
       })
       .catch(error => {
+        console.log(error.message)
         res.status(400).json({
-          error: "This username already exists!"
+          error: "This username already exists!!",
+          response: error.response
         });
       });
   }
