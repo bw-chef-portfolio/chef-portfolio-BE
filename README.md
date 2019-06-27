@@ -31,7 +31,7 @@ The post will have this basic format:
     }
 ```
 
-https://chef-portfolio-bw.herokuapp.com/api/api/auth/register
+https://chef-portfolio-bw.herokuapp.com/api/auth/register
 
 - Post will register a new user and Will provide an JSON web token
 
