@@ -15,7 +15,7 @@ server.use(function(req, res, next) {
 
 server.use(helmet());
 server.use(express.json());
-server.use(cors(corsOptions));
+server.use(cors());
 
 server.use("/api/auth", authRouter);
 server.use("/api/posts", postsRouter);
